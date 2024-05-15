@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #3498db, #2c3e50), url('your_nature_image_url.jpeg');
+            background-size: cover;
+            background-blend-mode: multiply;
+            transition: background 0.5s ease;
+        }
+
+        #quote-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        p#quote {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button {
+            font-size: 18px;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            color: #fff;
+        }3
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .fas {
+            margin-right: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quote-container">
+    <h2>Random Quote Generator</h2>
+    <p id="quote">Click the button below to get a random quote.</p>
+    <div class="button-container">
+        <button onclick="getRandomQuote()"><i class="fas fa-magic"></i></button>
+        <button onclick="speakQuote()"><i class="fas fa-volume-up"></i></button>
+        <button onclick="downloadQuote()"><i class="fas fa-download"></i></button>
+        <button onclick="tweetQuote()"><i class="fab fa-twitter"></i></button>
+        <button onclick="copyToClipboard()"><i class="fas fa-copy"></i></button>
+    </div>
+</div>
+
+<script>
+    const quotes = [
+        "The only way to do great work is to love what you do. - Steve Jobs",
+        "Life is what happens when you're busy making other plans. - John Lennon",
+        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+        "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+        "Strive not to be a success, but rather to be of value. - Albert Einstein",
+        "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt"
+    ];
+
+    function getRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quoteElement = document.getElementById('quote');
+        quoteElement.textContent = quotes[randomIndex];
+    }
+
+    function speakQuote() {
+        const quote = document.getElementById('quote').textContent;
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(quote);
+        synth.speak(utterance);
+    }
+
+    function downloadQuote() {
+        const quote = document.getElementById('quote').textContent;
+        const blob = new Blob([quote], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'quote.txt';
+        a.click();
+    }
+
+    function tweetQuote() {
+        const quote = document.getElementById('quote').textContent;
+        const twitterUrl = https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)};
+        window.open(twitterUrl, '_blank');
+    }
+
+    function copyToClipboard() {
+        const quote = document.getElementById('quote').textContent;
+        const textarea = document.createElement('textarea');
+        textarea.value = quote;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Quote copied to clipboard!');
+    }
+</script>
+
+</body>
+</html>
